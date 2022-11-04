@@ -1,0 +1,85 @@
+import logging
+#Registration and Login system using Python, file handling
+#Registration & #open data base and store the registration details.
+# email/ user name should follow syntax "name@domain.in/com" 
+#shouldnt start with numbers & special charecters
+#password (5 < password length > 16)
+# Must have minimum one (special character, digit,uppercase&lowercase) character  
+import re
+regex="^[a-zA-Z+_.-]+@[a-zA-Z.-]+$"
+def register():
+  db=open("database.txt","r")
+  email = input("enter email:")
+  password=input("enter password:")
+  password1=input("re enter your password:")
+  d=[]
+  f=[]
+  for i in db:
+    a=email
+    b=password
+    d.append(a)
+    f.append(b)
+    data=dict(zip(d, f))
+# validating entered email 
+  if re.fullmatch(regex, email):
+      print("Valid email")
+  else:
+      print("Invalid email")
+  home()
+# validating the entered password
+  if password!=password1:
+    print("entered password dosent match,restart")
+    register()
+  elif password!=regex:
+    print("password needs one uppercase,one lowercase,one numeric value and one special character")
+  elif len(password)<6:
+    print("Too short,restart")
+    register()
+  elif  len(password) > 20:
+      print("Too long,restart")
+  elif password!=regex:
+    print("please use one upper case,one lower case,one number and one special character")
+  else:
+    db=open("database,txt", a)
+    db.writer(email+" ,"+password+"\n")
+    print("success")
+
+
+#login validating credentials and asking to register 
+def login():
+  email = input("enter email:")
+  password=input("enter password:")
+
+  if not len(email or password)<1:
+    for i in db:
+       a=email
+       b=password
+       d.append(a)
+       f.append(b) 
+  data=dict(zip(d, f))
+
+  try:
+    if data[email]:
+      try:
+        if password==data[email]:
+          print("lofin sucessfull")
+        else:
+          print("login credentials dosent match")
+      except:
+        print("incorrect user name or password")
+      else:
+       print("user dosent exist")
+  except:
+     print("login error")
+
+
+def home(option=None):
+  option = input("login| register:")
+  if option==login:
+      login()
+  else:
+      option==register
+      register()
+home()
+     
+    
